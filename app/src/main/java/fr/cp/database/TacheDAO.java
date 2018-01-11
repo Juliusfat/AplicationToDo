@@ -3,6 +3,9 @@ package fr.cp.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cp.fr.aplicationtodo.Tache;
 
 /**
@@ -40,5 +43,29 @@ public class TacheDAO {
         tache.setAfaire(cursor.getInt(2));
 
         return tache;
+    }
+
+    public List<Tache> findALL() {
+
+        //instancier la liste des taches
+        List<Tache> contactList = new ArrayList<>();
+
+        //executer la requete sql
+
+        String sql = "SELECT id, list_tache, afaire FROM taches";
+        Cursor cursor = this.db.getReadableDatabase().rawQuery(sql,null);
+
+        // boucle sur le curseur
+
+        while (cursor.moveToNext()) {
+
+            contactList.add(this.hydrateTache(cursor));
+        }
+
+        //fermer cursor
+
+        cursor.close();
+
+        return contactList;
     }
 }
