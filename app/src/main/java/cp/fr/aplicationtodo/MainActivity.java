@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         tacheListView = findViewById(R.id.taCheListView);
         tacheList = this.dao.findALL();
-        TacheArrayAdapter contactAdapter = new TacheArrayAdapter(this, tacheList);
-        tacheListView.setAdapter(contactAdapter);
+        TacheArrayAdapter tacheAdapter = new TacheArrayAdapter(this, tacheList);
+        tacheListView.setAdapter(tacheAdapter);
 
 
 

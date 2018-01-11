@@ -53,7 +53,13 @@ public class TacheArrayAdapter extends ArrayAdapter{
         // liaison entre les données et la ligne
         TextView tachetextview = view .findViewById((R.id.ListTaCheViewName));
         tachetextview.setText(tachedata.getListtache());
+        CheckBox checkBox = view.findViewById(R.id.checkBoxValue);
 
+        if (tachedata.getAfaire() == 0) {
+            checkBox.setChecked(true);
+        } else {
+            checkBox.setChecked(false);
+            }
 
         return view;
 
