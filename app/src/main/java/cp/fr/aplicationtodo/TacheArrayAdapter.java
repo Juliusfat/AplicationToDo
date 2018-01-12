@@ -50,8 +50,8 @@ public class TacheArrayAdapter extends ArrayAdapter{
 
         View view = this.inflater.inflate(R.layout.tache_list_view,parent,false);
 
-        ((TextView) view.findViewById(R.id.ListTaCheViewName)).setText("");
-        ((CheckBox) view.findViewById(R.id.checkBoxValue)).setChecked(true);
+        //((TextView) view.findViewById(R.id.ListTaCheViewName)).setText("");
+        //((CheckBox) view.findViewById(R.id.checkBoxValue)).setChecked(true);
 
         Tache tachedata = this.data.get(position);
         // liaison entre les données et la ligne

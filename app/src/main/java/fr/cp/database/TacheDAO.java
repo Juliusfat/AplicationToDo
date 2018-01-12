@@ -25,7 +25,7 @@ public class TacheDAO {
         this.db = db;
     }
 
-    public Tache findOneByID(long id) throws SQLiteException {
+    /*public Tache findOneByID(long id) throws SQLiteException {
         String[] param = {String.valueOf(id)};
         String sql = "SELECT id, list_tache, afaire FROM contacts WHERE id=?";
         Cursor cursor = this.db.getReadableDatabase().rawQuery(sql, param);
@@ -39,7 +39,7 @@ public class TacheDAO {
         }
         cursor.close();
         return tache;
-    }
+    }*/
 
     private  Tache hydrateTache(Cursor cursor) {
         Tache tache = new Tache();

@@ -1,9 +1,12 @@
 package cp.fr.aplicationtodo;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +27,7 @@ import java.util.List;
 import fr.cp.database.DataBaseList;
 import fr.cp.database.TacheDAO;
 
+import static cp.fr.aplicationtodo.R.id.ListTaCheViewName;
 import static cp.fr.aplicationtodo.R.id.taCheListView;
 
 
@@ -135,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
     //Fonction appelée au clic d'une des checkbox
     public void onItemClick(View v) {
         CheckBox cb = (CheckBox) v;
+
+        Integer afaire;
         //on récupère la position à l'aide du tag défini dans la classe MyListAdapter
         int position = Integer.parseInt(cb.getTag().toString());
 
@@ -145,9 +153,32 @@ public class MainActivity extends AppCompatActivity {
         //On change la couleur
         if (cb.isChecked()) {
             o.setBackgroundResource(R.color.Blé);
+            afaire = 1;
         } else {
             o.setBackgroundResource(R.color.Céleste);
+            afaire = 0;
         }
+        Tache task = this.tacheList.get(position);
+        TextView askafaire = o.findViewById(R.id.ListTaCheViewName);
+        String tache = askafaire.getText().toString();
+
+        ContentValues insertValues = new ContentValues();
+        insertValues.put("list_tache", tache);
+        insertValues.put("afaire", afaire);
+
+
+        String [] params = {task.getId().toString()};
+
+
+        try {
+        db.getWritableDatabase().update("taches",insertValues,"id=?",params);
+        //this.db.getWritableDatabase().update("taches", insertValues, "id=?",params);
+            Toast.makeText(this, "MAJ OK", Toast.LENGTH_SHORT).show();
+        } catch (SQLiteException ex) {
+        Log.e("SQL EXCEPTION", ex.getMessage());
+    }
+
+
     }
 
 }

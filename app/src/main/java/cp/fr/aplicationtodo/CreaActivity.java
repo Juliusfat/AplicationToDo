@@ -28,7 +28,7 @@ public class CreaActivity extends AppCompatActivity {
     public void onValid(View view) {
 
         String name = this.newTaCheText.getText().toString();
-        check = 1;
+        check = 0;
 
         //Instanciation de connexion à la base de données
         DataBaseList db = new DataBaseList(this);
