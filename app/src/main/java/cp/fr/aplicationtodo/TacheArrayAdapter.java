@@ -47,8 +47,8 @@ public class TacheArrayAdapter extends ArrayAdapter{
 
 
         // instenciation de la vue
-
-        View view = this.inflater.inflate(R.layout.tache_list_view,parent,false);
+        LayoutInflater inflater = this.context.getLayoutInflater();
+        View view = inflater.inflate(R.layout.tache_list_view, parent, false);
 
         //((TextView) view.findViewById(R.id.ListTaCheViewName)).setText("");
         //((CheckBox) view.findViewById(R.id.checkBoxValue)).setChecked(true);
@@ -59,7 +59,7 @@ public class TacheArrayAdapter extends ArrayAdapter{
         tachetextview.setText(tachedata.getListtache());
         CheckBox checkBox = view.findViewById(R.id.checkBoxValue);
 
-        if (tachedata.getAfaire() == 0) {
+        if (tachedata.getAfaire() != 1) {
             checkBox.setChecked(true);
         } else {
             checkBox.setChecked(false);

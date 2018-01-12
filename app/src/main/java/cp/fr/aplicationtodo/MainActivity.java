@@ -153,10 +153,10 @@ public class MainActivity extends AppCompatActivity {
         //On change la couleur
         if (cb.isChecked()) {
             o.setBackgroundResource(R.color.Blé);
-            afaire = 1;
+            afaire = 0;
         } else {
             o.setBackgroundResource(R.color.Céleste);
-            afaire = 0;
+            afaire = 1;
         }
         Tache task = this.tacheList.get(position);
         TextView askafaire = o.findViewById(R.id.ListTaCheViewName);
@@ -167,12 +167,15 @@ public class MainActivity extends AppCompatActivity {
         insertValues.put("afaire", afaire);
 
 
-        String [] params = {task.getId().toString()};
+        String[] params = {task.getId().toString()};
 
-
+        Toast.makeText(this, "id =" + tache + " valeur " + afaire, Toast.LENGTH_SHORT).show();
         try {
-        db.getWritableDatabase().update("taches",insertValues,"id=?",params);
-        //this.db.getWritableDatabase().update("taches", insertValues, "id=?",params);
+            this.db.getWritableDatabase().update(
+                    "taches",
+                    insertValues,
+                    "id=?",
+                    params);
             Toast.makeText(this, "MAJ OK", Toast.LENGTH_SHORT).show();
         } catch (SQLiteException ex) {
         Log.e("SQL EXCEPTION", ex.getMessage());

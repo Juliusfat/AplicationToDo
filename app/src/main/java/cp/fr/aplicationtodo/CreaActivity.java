@@ -15,7 +15,7 @@ import fr.cp.database.DataBaseList;
 public class CreaActivity extends AppCompatActivity {
 
     private EditText newTaCheText;
-    private int check;
+    private Integer check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
