@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -49,6 +50,9 @@ public class TacheArrayAdapter extends ArrayAdapter{
 
         View view = this.inflater.inflate(R.layout.tache_list_view,parent,false);
 
+        ((TextView) view.findViewById(R.id.ListTaCheViewName)).setText("");
+        ((CheckBox) view.findViewById(R.id.checkBoxValue)).setChecked(true);
+
         Tache tachedata = this.data.get(position);
         // liaison entre les données et la ligne
         TextView tachetextview = view .findViewById((R.id.ListTaCheViewName));
@@ -60,6 +64,9 @@ public class TacheArrayAdapter extends ArrayAdapter{
         } else {
             checkBox.setChecked(false);
             }
+        // On lui affecte un tag comportant la position de l'item afin de
+        // pouvoir le récupérer au clic de la checkbox
+        checkBox.setTag (position);
 
         return view;
 

@@ -2,6 +2,7 @@ package fr.cp.database;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,10 @@ import cp.fr.aplicationtodo.Tache;
 public class TacheDAO {
 
     private DataBaseList db;
+    private int position;
+    Cursor cursor;
+    String sql;
+
 
     public TacheDAO(DataBaseList db) {
         this.db = db;
@@ -45,27 +50,38 @@ public class TacheDAO {
         return tache;
     }
 
-    public List<Tache> findALL() {
+    public List<Tache> findALL(int position) {
+        this.position = position;
+
+        System.out.print(this.position);
 
         //instancier la liste des taches
-        List<Tache> contactList = new ArrayList<>();
+        List<Tache> tacheList = new ArrayList<>();
 
         //executer la requete sql
-
-        String sql = "SELECT id, list_tache, afaire FROM taches";
-        Cursor cursor = this.db.getReadableDatabase().rawQuery(sql,null);
-
+      if (this.position == 3) {
+          this.sql = "SELECT id, list_tache, afaire FROM taches";
+          this.cursor = this.db.getReadableDatabase().rawQuery(sql, null);
+      } else {
+            if (this.position == 1) {
+                this.sql = "SELECT id, list_tache, afaire FROM taches WHERE afaire = 1";
+                this.cursor = this.db.getReadableDatabase().rawQuery(sql, null);
+            }
+            else {
+                this.sql = "SELECT id, list_tache, afaire FROM taches WHERE afaire = 0";
+                this.cursor = this.db.getReadableDatabase().rawQuery(sql, null);
+        }}
         // boucle sur le curseur
 
-        while (cursor.moveToNext()) {
+        while (this.cursor.moveToNext()) {
 
-            contactList.add(this.hydrateTache(cursor));
+            tacheList.add(this.hydrateTache(this.cursor));
         }
 
         //fermer cursor
 
-        cursor.close();
+        this.cursor.close();
 
-        return contactList;
+        return tacheList;
     }
 }

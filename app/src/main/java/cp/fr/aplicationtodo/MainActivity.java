@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,6 +22,8 @@ import java.util.List;
 import fr.cp.database.DataBaseList;
 import fr.cp.database.TacheDAO;
 
+import static cp.fr.aplicationtodo.R.id.taCheListView;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private TacheDAO dao;
     private ListView tacheListView;
     private List<Tache> tacheList;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +86,15 @@ public class MainActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItemText = (String) parent.getItemAtPosition(position);
+                //int selectedItem = (int) parent.getItemAtPosition(position);
                 // If user change the default selection
                 // First item is disable and it is used for hint
                 if(position > 0){
                     // Notify the selected item text
-                    Toast.makeText
-                            (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
-                            .show();
+                   /* Toast.makeText
+                            (getApplicationContext(), "Selected : " + position, Toast.LENGTH_SHORT)
+                            .show();*/
+                    accessDb(position);
                 }
             }
 
@@ -99,20 +105,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        //instancier gestionnaire de base de données
 
+    }
+
+    private void accessDb(int position) {
+        this.position = position;
+
+        //instancier gestionnaire de base de données
         this.db = new DataBaseList(this);
 
         //instancier la liste des contacts
         this.dao = new TacheDAO(this.db);
 
-        tacheListView = findViewById(R.id.taCheListView);
-        tacheList = this.dao.findALL();
+
+
+        tacheListView = findViewById(taCheListView);
+        tacheList = this.dao.findALL(this.position);
         TacheArrayAdapter tacheAdapter = new TacheArrayAdapter(this, tacheList);
         tacheListView.setAdapter(tacheAdapter);
-
-
-
     }
 
     public void onAddList(View view) {
@@ -120,6 +130,24 @@ public class MainActivity extends AppCompatActivity {
         startActivity(FormIntent);
 
 
+    }
+
+    //Fonction appelée au clic d'une des checkbox
+    public void onItemClick(View v) {
+        CheckBox cb = (CheckBox) v;
+        //on récupère la position à l'aide du tag défini dans la classe MyListAdapter
+        int position = Integer.parseInt(cb.getTag().toString());
+
+        // On récupère l'élément sur lequel on va changer la couleur
+        View o = tacheListView.getChildAt(position).findViewById(
+                R.id.blocCheck);
+
+        //On change la couleur
+        if (cb.isChecked()) {
+            o.setBackgroundResource(R.color.Blé);
+        } else {
+            o.setBackgroundResource(R.color.Céleste);
+        }
     }
 
 }
