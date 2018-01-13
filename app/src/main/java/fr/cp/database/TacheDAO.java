@@ -53,9 +53,7 @@ public class TacheDAO {
     public List<Tache> findALL(int position) {
         this.position = position;
 
-        System.out.print(this.position);
-
-        //instancier la liste des taches
+       //instancier la liste des taches
         List<Tache> tacheList = new ArrayList<>();
 
         //executer la requete sql
@@ -83,5 +81,11 @@ public class TacheDAO {
         this.cursor.close();
 
         return tacheList;
+    }
+
+    public void deleteOneById(Long id) throws SQLiteException{
+        String[] params = {id.toString()};
+        String sql = "DELETE FROM taches WHERE id=?";
+        this.db.getWritableDatabase().execSQL(sql, params);
     }
 }

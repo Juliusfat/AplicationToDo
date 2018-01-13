@@ -1,6 +1,8 @@
 package cp.fr.aplicationtodo;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
@@ -109,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        accessDb(3);
 
 
 
@@ -186,7 +189,39 @@ public class MainActivity extends AppCompatActivity {
 
     public void onDelete (View v) {
 
-
+        //Récupération de la position taguée
+        int position = (int) v.getTag();
+        Tache task = this.tacheList.get(position);
+        //Affichage de la confirmation
+        AlertDialog dialog = getConfirmDeleteDialog(task.getId());
+        dialog.show();
+        accessDb(3);
     }
+
+    private AlertDialog getConfirmDeleteDialog(final Long id){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setMessage("Voulez-vous vraiment supprimer cette tâche ?");
+        //Gestion de la confirmation OK
+        dialogBuilder.setPositiveButton("OUI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dao.deleteOneById(id);
+                dialog.dismiss();
+            }
+        });
+
+        //Gestion de la confirmation KO
+        dialogBuilder.setNegativeButton("NON", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        });
+
+        return dialogBuilder.create();
+    }
+
+
+
 
 }

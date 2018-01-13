@@ -31,8 +31,7 @@
             android:layout_width="1px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="@color/Blé"
-            android:background="@drawable/btn_red"
+            android:textColor="@color/colorPrimaryDark"
             android:text="Supp"
             android:onClick="onDelete"/>
 
