@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -64,9 +66,15 @@ public class TacheArrayAdapter extends ArrayAdapter{
         } else {
             checkBox.setChecked(false);
             }
+        //Référence au bouton supprimer
+        Button deleteButton = view.findViewById(R.id.deleteButton);
+
         // On lui affecte un tag comportant la position de l'item afin de
         // pouvoir le récupérer au clic de la checkbox
+
+        deleteButton.setTag(position);
         checkBox.setTag (position);
+
 
         return view;
 
