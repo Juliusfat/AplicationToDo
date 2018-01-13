@@ -172,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
 
         String[] params = {task.getId().toString()};
 
-        Toast.makeText(this, "id =" + tache + " valeur " + afaire, Toast.LENGTH_SHORT).show();
         try {
             this.db.getWritableDatabase().update(
                     "taches",
@@ -195,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         //Affichage de la confirmation
         AlertDialog dialog = getConfirmDeleteDialog(task.getId());
         dialog.show();
-        accessDb(3);
+
     }
 
     private AlertDialog getConfirmDeleteDialog(final Long id){
@@ -206,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int i) {
                 dao.deleteOneById(id);
+                accessDb(3);
                 dialog.dismiss();
             }
         });
