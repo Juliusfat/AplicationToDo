@@ -12,31 +12,29 @@
 
         <TextView
             android:id="@+id/ListTaCheViewName"
-            android:layout_width="wrap_content"
+            android:layout_width="290sp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+
             android:textStyle="bold"
             android:text="tache à afficher"/>
 
 
         <CheckBox
             android:id="@+id/checkBoxValue"
-            android:layout_width="wrap_content"
+            android:layout_width="30sp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:onClick="onItemClick"/>
 
         <Button
             android:id="@+id/deleteButton"
-            android:layout_width="1px"
+            android:layout_width="50sp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+
             android:textColor="@color/colorPrimaryDark"
-            android:text="Supp"
+            android:text="del"
             android:onClick="onDelete"/>
 
     </LinearLayout>
-
-
 
 </LinearLayout>
