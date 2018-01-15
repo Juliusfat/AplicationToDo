@@ -3,6 +3,8 @@ package fr.cp.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteStatement;
+import android.database.sqlite.SQLiteTransactionListener;
 
 /**
  * Created by Formation on 11/01/2018.
@@ -17,6 +19,8 @@ public class DataBaseList extends SQLiteOpenHelper {
             "list_tache TEXT NOT NULL," +
             "afaire INTEGER NOT NULL)";
 
+    private Boolean isNew =false;
+    private Boolean isUpdated =false;
 
     public DataBaseList(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,12 +31,23 @@ public class DataBaseList extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CONTACT_TABLE_SQL);
 
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS taches");
-        this.onCreate(db);
+        this.isNew=true;
 
     }
+
+    public Boolean isNew() {
+        return isNew;
+    }
+
+    public Boolean isUpdate() {
+        return isUpdated;
+    }
+
+
 }

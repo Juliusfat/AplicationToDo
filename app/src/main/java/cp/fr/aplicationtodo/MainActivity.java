@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         //instancier la liste des contacts
         this.dao = new TacheDAO(this.db);
 
-
+        this.dao.insertTodo(this.db.getWritableDatabase());
 
         tacheListView = findViewById(taCheListView);
         tacheList = this.dao.findALL(this.position);

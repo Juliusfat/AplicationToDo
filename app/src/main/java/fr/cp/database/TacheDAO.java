@@ -1,7 +1,9 @@
 package fr.cp.database;
 
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.database.sqlite.SQLiteStatement;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -87,5 +89,25 @@ public class TacheDAO {
         String[] params = {id.toString()};
         String sql = "DELETE FROM taches WHERE id=?";
         this.db.getWritableDatabase().execSQL(sql, params);
+    }
+
+    public void insertTodo (SQLiteDatabase db) {
+
+        if(this.db.isNew()) {
+
+            String sql = "INSERT INTO taches (list_tache, afaire) VALUES (?,?)";
+            //compilation de la requete
+            SQLiteStatement statement = db.compileStatement(sql);
+
+            // défintion des données et exécutions multiples de la requête
+            statement.bindString(1, "Sortir le chat");
+            statement.bindLong(2, 1);
+            statement.executeInsert();
+
+            // défintion des données et exécutions multiples de la requête
+            statement.bindString(1, "Sortir la poubelle");
+            statement.bindLong(2, 1);
+            statement.executeInsert();
+        }
     }
 }
