@@ -13,10 +13,17 @@
         <TextView
             android:id="@+id/ListTaCheViewName"
             android:layout_width="0dp"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:text="tache à afficher"/>
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="utilisateur"/>
 
 
         <CheckBox

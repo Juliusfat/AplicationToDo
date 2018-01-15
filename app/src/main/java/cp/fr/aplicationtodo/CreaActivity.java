@@ -16,6 +16,7 @@ public class CreaActivity extends AppCompatActivity {
 
     private EditText newTaCheText;
     private Integer check;
+    private EditText userText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,11 +24,13 @@ public class CreaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_crea);
 
         this.newTaCheText = findViewById(R.id.newTaCheText);
+        this.userText = findViewById(R.id.newUserName);
     }
 
     public void onValid(View view) {
 
         String name = this.newTaCheText.getText().toString();
+        String user =this.userText.getText().toString();
         check = 1;
 
         //Instanciation de connexion à la base de données
@@ -37,12 +40,14 @@ public class CreaActivity extends AppCompatActivity {
         ContentValues insertValues = new ContentValues();
         insertValues.put("list_tache", name);
         insertValues.put("afaire", check);
+        insertValues.put ("user",user);
 
         // initialisation base de données
     try {
         db.getWritableDatabase().insert("taches", null, insertValues);
         Toast.makeText(this, "Insertion OK", Toast.LENGTH_SHORT).show();
         ((EditText) findViewById(R.id.newTaCheText)).setText("");
+        ((EditText) findViewById(R.id.newUserName)).setText("");
     } catch (SQLiteException ex) {
         Log.e("SQL EXCEPTION", ex.getMessage());
     }

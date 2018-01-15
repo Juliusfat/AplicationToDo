@@ -111,6 +111,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        //instancier gestionnaire de base de données
+        this.db = new DataBaseList(this);
+
+        //instancier la liste des contacts
+        this.dao = new TacheDAO(this.db);
+
+        this.dao.insertTodo(this.db.getWritableDatabase());
+
+        if (this.db.isUpdate()){
+            this.dao.upgarede();
+        }
         accessDb(3);
 
 
@@ -120,13 +131,6 @@ public class MainActivity extends AppCompatActivity {
     private void accessDb(int position) {
         this.position = position;
 
-        //instancier gestionnaire de base de données
-        this.db = new DataBaseList(this);
-
-        //instancier la liste des contacts
-        this.dao = new TacheDAO(this.db);
-
-        this.dao.insertTodo(this.db.getWritableDatabase());
 
         tacheListView = findViewById(taCheListView);
         tacheList = this.dao.findALL(this.position);
@@ -164,10 +168,13 @@ public class MainActivity extends AppCompatActivity {
         Tache task = this.tacheList.get(position);
         TextView askafaire = o.findViewById(R.id.ListTaCheViewName);
         String tache = askafaire.getText().toString();
+        TextView auser = o.findViewById(R.id.userName);
+        String user = auser.getText().toString();
 
         ContentValues insertValues = new ContentValues();
         insertValues.put("list_tache", tache);
         insertValues.put("afaire", afaire);
+        insertValues.put("user", user);
 
 
         String[] params = {task.getId().toString()};
